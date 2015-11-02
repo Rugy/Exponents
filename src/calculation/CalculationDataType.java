@@ -2,15 +2,16 @@ package calculation;
 
 public abstract class CalculationDataType {
 
-	public enum DataType {
+	public enum CalculationMethod {
 
-		BIGINTEGER, DOUBLE;
+		ADDITION, MULTIPLICATION;
 
 	}
 
 	public abstract CalculationBigInteger getBigIntegerCalculation(
-			DataType bigInteger);
+			CalculationMethod calculationMethod);
 
-	public abstract CalculationDouble getDoubleCalculation(DataType doubleCalc);
+	public abstract CalculationDouble getDoubleCalculation(
+			CalculationMethod calculationMethod);
 
 }
