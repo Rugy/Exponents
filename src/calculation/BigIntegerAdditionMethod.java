@@ -34,6 +34,16 @@ public class BigIntegerAdditionMethod implements CalculationBigInteger {
 		this.exponent = exponent;
 	}
 
+	public BigIntegerAdditionMethod(int exponent, StackCreator stackCreator) {
+		if (exponent <= 1) {
+			throw new IllegalArgumentException("Exponent can't be 1 or lower.");
+		}
+
+		this.stackCreator = stackCreator;
+		exponentFactorial = stackCreator.factorialBigIngeter(exponent);
+		this.exponent = exponent;
+	}
+
 	public int getExponent() {
 		return exponent;
 	}
@@ -79,9 +89,10 @@ public class BigIntegerAdditionMethod implements CalculationBigInteger {
 		} else if (base == currentBase + 1 && null != additionStack) {
 			for (int i = additionStack.length - 1; i >= 0; i--) {
 				if (i == additionStack.length - 1) {
-					additionStack[i].add(exponentFactorial);
+					additionStack[i] = additionStack[i].add(exponentFactorial);
 				} else {
-					additionStack[i].add(additionStack[i + 1]);
+					additionStack[i] = additionStack[i]
+							.add(additionStack[i + 1]);
 				}
 			}
 			result = additionStack[0];
@@ -91,6 +102,7 @@ public class BigIntegerAdditionMethod implements CalculationBigInteger {
 		} else {
 			additionStack = stackCreator.createBigIntegerStack(base - exponent
 					+ 1, exponent);
+
 			result = additionStack[0];
 		}
 

@@ -24,23 +24,17 @@ public class DoubleAdditionMethodTest {
 		mockedStackCreator = mock(StackCreatorImpl.class);
 	}
 
-	// Constructor
-	@Test
-	public void testConstructorWorks() {
-		additionMethod = new DoubleAdditionMethod(3);
-	}
-
 	// If-checks and stackCreator-calls
 	@Test
 	public void testCalculateWithBaseFourExponentSixCallsMultiplyFiveTimes()
 			throws OverflowException {
-		additionMethod = new DoubleAdditionMethod(6, mockedStackCreator);
-		when(mockedStackCreator.factorialRecursively(6)).thenReturn(720d);
+		when(mockedStackCreator.factorialIteratively(6)).thenReturn(720d);
 		when(mockedStackCreator.multiplyDouble(4, 4d)).thenReturn(16d);
 		when(mockedStackCreator.multiplyDouble(4, 16d)).thenReturn(64d);
 		when(mockedStackCreator.multiplyDouble(4, 64d)).thenReturn(256d);
 		when(mockedStackCreator.multiplyDouble(4, 256d)).thenReturn(1024d);
 		when(mockedStackCreator.multiplyDouble(4, 1024d)).thenReturn(4096d);
+		additionMethod = new DoubleAdditionMethod(6, mockedStackCreator);
 
 		additionMethod.calculate(4);
 		verify(mockedStackCreator, times(5)).multiplyDouble(anyDouble(),
@@ -51,10 +45,10 @@ public class DoubleAdditionMethodTest {
 	public void testCalculateWithSameBaseAndExponentCallsMultiplicationZeroTimes()
 			throws OverflowException {
 		double[] testDoubleArray = { 3125.0, 2101.0, 1320.0, 750.0, 360.0 };
-		additionMethod = new DoubleAdditionMethod(5, mockedStackCreator);
-		when(mockedStackCreator.factorialRecursively(5)).thenReturn(120d);
+		when(mockedStackCreator.factorialIteratively(5)).thenReturn(120d);
 		when(mockedStackCreator.createDoubleStack(1, 5)).thenReturn(
 				testDoubleArray);
+		additionMethod = new DoubleAdditionMethod(5, mockedStackCreator);
 
 		additionMethod.calculate(5);
 		verify(mockedStackCreator, never()).multiplyDouble(anyDouble(),
@@ -65,10 +59,10 @@ public class DoubleAdditionMethodTest {
 	public void testIncrementalCalculationsCallCreateDoubleStackOnlyOnce()
 			throws OverflowException {
 		double[] testDoubleArray = { 3125.0, 2101.0, 1320.0, 750.0, 360.0 };
-		additionMethod = new DoubleAdditionMethod(5, mockedStackCreator);
-		when(mockedStackCreator.factorialRecursively(5)).thenReturn(120d);
+		when(mockedStackCreator.factorialIteratively(5)).thenReturn(120d);
 		when(mockedStackCreator.createDoubleStack(1, 5)).thenReturn(
 				testDoubleArray);
+		additionMethod = new DoubleAdditionMethod(5, mockedStackCreator);
 
 		additionMethod.calculate(5);
 		additionMethod.calculate(6);
@@ -82,13 +76,28 @@ public class DoubleAdditionMethodTest {
 	public void testCalculateBaseFourWithExponentThreeEqualsSixtyFour()
 			throws OverflowException {
 		double[] testDoubleArray = { 64.0, 37.0, 18.0 };
-		additionMethod = new DoubleAdditionMethod(3, mockedStackCreator);
 		when(mockedStackCreator.factorialIteratively(3)).thenReturn(3d);
 		when(mockedStackCreator.createDoubleStack(2, 3)).thenReturn(
 				testDoubleArray);
+		additionMethod = new DoubleAdditionMethod(3, mockedStackCreator);
 
-		assertEquals("Calculation of Base 4 With Exponent 3 must 64",
-				additionMethod.calculate(4), 64d, 0);
+		assertEquals("Calculation of Base 4 With Exponent 3 must 64", 64d,
+				additionMethod.calculate(4), 0);
+	}
+
+	@Test
+	public void testIncrementalCallBaseFourWithExponentThreeEqualsOneTwentyFive()
+			throws OverflowException {
+		double[] testDoubleArray = { 64.0, 37.0, 18.0 };
+		when(mockedStackCreator.factorialIteratively(3)).thenReturn(6d);
+		when(mockedStackCreator.createDoubleStack(2, 3)).thenReturn(
+				testDoubleArray);
+		additionMethod = new DoubleAdditionMethod(3, mockedStackCreator);
+
+		additionMethod.calculate(4);
+		assertEquals(
+				"Incremental calculation of Base 5 With Exponent 3 must 125",
+				125d, additionMethod.calculate(5), 0);
 	}
 
 	// Exceptions

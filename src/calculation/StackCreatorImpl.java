@@ -200,7 +200,7 @@ public class StackCreatorImpl implements StackCreator {
 			BigInteger factor = factorial;
 
 			for (int j = 0; j < i; j++) {
-				factorial.add(factor);
+				factorial = factorial.add(factor);
 			}
 		}
 

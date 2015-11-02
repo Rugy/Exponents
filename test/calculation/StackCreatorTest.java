@@ -138,14 +138,14 @@ public class StackCreatorTest {
 	// FactorialBigInteger
 	@Test
 	public void testFactorialBigIntegerOfFiveEqualsOneTwenty() {
-		assertEquals("BigInteger factorial of 5 must be 120", 120,
-				creator.factorialIteratively(5), 0);
+		assertEquals("BigInteger factorial of 5 must be 120",
+				BigInteger.valueOf(120), creator.factorialBigIngeter(5));
 	}
 
 	@Test
 	public void testFactorialBigIntegerOfZeroEqualsOne() {
-		assertEquals("BigInteger factorial of 0 must be 1", 1,
-				creator.factorialIteratively(0), 0);
+		assertEquals("BigInteger factorial of 0 must be 1",
+				BigInteger.valueOf(1), creator.factorialBigIngeter(0));
 	}
 
 	@Test
@@ -155,7 +155,7 @@ public class StackCreatorTest {
 
 	@Test(expected = ArithmeticException.class)
 	public void testFactorialBigIntegerNegativeThrowsException() {
-		creator.factorialIteratively(-1);
+		creator.factorialBigIngeter(-1);
 	}
 
 	// MultiplyDouble
