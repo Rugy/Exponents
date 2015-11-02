@@ -1,4 +1,7 @@
-package calculation;
+package exponents.calculation.pattern;
+
+import exponents.calculation.implementation.BigIntegerAdditionMethod;
+import exponents.calculation.implementation.BigIntegerMultiplicationMethod;
 
 public class CreateBigIntegerCalculation extends CalculationDataType {
 

@@ -1,6 +1,8 @@
-package calculation;
+package exponents.calculation.implementation;
 
 import java.math.BigInteger;
+
+import exponents.calculation.pattern.CalculationBigInteger;
 
 /**
  * @author Andreas Heimann </br>

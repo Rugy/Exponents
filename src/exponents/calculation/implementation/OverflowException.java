@@ -1,4 +1,4 @@
-package calculation;
+package exponents.calculation.implementation;
 
 public class OverflowException extends Exception {
 

@@ -1,4 +1,7 @@
-package calculation;
+package exponents.calculation.implementation;
+
+import exponents.calculation.pattern.CalculationDouble;
+
 
 /**
  * @author Andreas Heimann </br>

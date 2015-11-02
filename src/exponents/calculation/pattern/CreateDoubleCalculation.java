@@ -1,4 +1,7 @@
-package calculation;
+package exponents.calculation.pattern;
+
+import exponents.calculation.implementation.DoubleAdditionMethod;
+import exponents.calculation.implementation.DoubleMultiplicationMethod;
 
 public class CreateDoubleCalculation extends CalculationDataType {
 

@@ -4,6 +4,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import exponents.calculation.implementation.DoubleAdditionMethod;
+import exponents.calculation.implementation.OverflowException;
+import exponents.calculation.implementation.StackCreator;
+import exponents.calculation.implementation.StackCreatorImpl;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyDouble;
 import static org.mockito.Matchers.anyInt;

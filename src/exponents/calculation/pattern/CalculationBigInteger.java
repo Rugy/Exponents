@@ -1,4 +1,4 @@
-package calculation;
+package exponents.calculation.pattern;
 
 import java.math.BigInteger;
 

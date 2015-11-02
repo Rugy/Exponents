@@ -1,4 +1,4 @@
-package calculation;
+package exponents.calculation.pattern;
 
 public class FactoryProducer {
 

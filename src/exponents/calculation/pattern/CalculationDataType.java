@@ -1,4 +1,5 @@
-package calculation;
+package exponents.calculation.pattern;
+
 
 public abstract class CalculationDataType {
 
