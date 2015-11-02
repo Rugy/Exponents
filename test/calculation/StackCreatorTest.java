@@ -1,11 +1,11 @@
 package calculation;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-
 import java.math.BigInteger;
 
 import org.junit.Test;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class StackCreatorTest {
 
@@ -93,24 +93,6 @@ public class StackCreatorTest {
 				creator.doubleToBigInteger(testDouble));
 	}
 
-	// FactorialIteratively
-	@Test
-	public void testFactorialIterativeOfFiveEqualsOneTwenty() {
-		assertEquals("Iterative factorial of 5 must be 120", 120,
-				creator.factorialIteratively(5), 0);
-	}
-
-	@Test
-	public void testFactorialIterativeOfZeroEqualsOne() {
-		assertEquals("Iterative factorial of 0 must be 1", 1,
-				creator.factorialIteratively(0), 0);
-	}
-
-	@Test(expected = ArithmeticException.class)
-	public void testFactorialIterativeNegativeThrowsException() {
-		creator.factorialIteratively(-1);
-	}
-
 	// FactorialRecursively
 	@Test
 	public void testFactorialRecuriveOfFiveEqualsOneTwenty() {
@@ -133,6 +115,47 @@ public class StackCreatorTest {
 	@Test(expected = ArithmeticException.class)
 	public void testFactorialRecursiveNegativeThrowsException() {
 		creator.factorialRecursively(-1);
+	}
+
+	// FactorialIteratively
+	@Test
+	public void testFactorialIterativeOfFiveEqualsOneTwenty() {
+		assertEquals("Iterative factorial of 5 must be 120", 120,
+				creator.factorialIteratively(5), 0);
+	}
+
+	@Test
+	public void testFactorialIterativeOfZeroEqualsOne() {
+		assertEquals("Iterative factorial of 0 must be 1", 1,
+				creator.factorialIteratively(0), 0);
+	}
+
+	@Test(expected = ArithmeticException.class)
+	public void testFactorialIterativeNegativeThrowsException() {
+		creator.factorialIteratively(-1);
+	}
+
+	// FactorialBigInteger
+	@Test
+	public void testFactorialBigIntegerOfFiveEqualsOneTwenty() {
+		assertEquals("BigInteger factorial of 5 must be 120", 120,
+				creator.factorialIteratively(5), 0);
+	}
+
+	@Test
+	public void testFactorialBigIntegerOfZeroEqualsOne() {
+		assertEquals("BigInteger factorial of 0 must be 1", 1,
+				creator.factorialIteratively(0), 0);
+	}
+
+	@Test
+	public void testFactorialBigIntegerOfLargeNumberComputes() {
+		creator.factorialBigIngeter(500);
+	}
+
+	@Test(expected = ArithmeticException.class)
+	public void testFactorialBigIntegerNegativeThrowsException() {
+		creator.factorialIteratively(-1);
 	}
 
 	// MultiplyDouble
