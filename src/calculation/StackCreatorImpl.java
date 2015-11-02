@@ -182,6 +182,31 @@ public class StackCreatorImpl implements StackCreator {
 		return factorial;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	public BigInteger factorialBigIngeter(int exponent) {
+		if (exponent < 0) {
+			throw new ArithmeticException("calculating negative factorial");
+		}
+
+		if (exponent <= 1) {
+			return BigInteger.valueOf(1);
+		}
+
+		BigInteger factorial = BigInteger.valueOf(1);
+
+		for (int i = 0; i < exponent; i++) {
+			BigInteger factor = factorial;
+
+			for (int j = 0; j < i; j++) {
+				factorial.add(factor);
+			}
+		}
+
+		return factorial;
+	}
+
 	public double multiplyDouble(double factor, double number)
 			throws OverflowException {
 		double result = 0;

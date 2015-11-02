@@ -82,6 +82,17 @@ public interface StackCreator {
 	 */
 	public double factorialIteratively(int exponent);
 
+	/**
+	 * Iteratively calculates the factorial of given number without using
+	 * multiplication to create the value of the lowest stack-element.
+	 * 
+	 * @param exponent
+	 *            - An Integer between 1 and Max.Integer.
+	 * @return factorial of the <code>exponent</code> integer as a BigInteger
+	 * 
+	 */
+	public BigInteger factorialBigIngeter(int exponent);
+
 	public double multiplyDouble(double factor, double number)
 			throws OverflowException;
 
