@@ -1,8 +1,7 @@
 package exponents.calculation.implementation;
 
-import java.math.BigInteger;
+import exponents.calculation.pattern.CalculationDouble;
 
-import exponents.calculation.pattern.CalculationBigInteger;
 
 /**
  * @author Andreas Heimann </br>
@@ -12,13 +11,13 @@ import exponents.calculation.pattern.CalculationBigInteger;
  *         <code>exponent</code> with {@link #setExponent(int)}
  *
  */
-public class BigIntegerMultiplicationMethod implements CalculationBigInteger {
+public class DoubleMultiplication implements CalculationDouble {
 
-	private static BigIntegerMultiplicationMethod multiplicator = new BigIntegerMultiplicationMethod();
+	private static DoubleMultiplication multiplicator = new DoubleMultiplication();
 	private int exponent = 1;
 
 	// Private constructor so no new Instances can be generated
-	private BigIntegerMultiplicationMethod() {
+	private DoubleMultiplication() {
 	}
 
 	public int getExponent() {
@@ -33,18 +32,24 @@ public class BigIntegerMultiplicationMethod implements CalculationBigInteger {
 		this.exponent = exponent;
 	}
 
-	public static BigIntegerMultiplicationMethod getMultiplicationMethod(
+	public static DoubleMultiplication getMultiplicationMethod(
 			int exponent) {
 		return multiplicator;
 	}
 
 	@Override
-	public BigInteger calculate(int base) {
+	public double calculate(int base) throws OverflowException {
 		if (base <= 1) {
 			throw new IllegalArgumentException();
 		}
 
-		return BigInteger.valueOf(base).pow(exponent);
+		double result = Math.pow(base, exponent);
+
+		if (result == Double.POSITIVE_INFINITY) {
+			throw new OverflowException("double overflow after multiplication");
+		}
+
+		return result;
 	}
 
 }

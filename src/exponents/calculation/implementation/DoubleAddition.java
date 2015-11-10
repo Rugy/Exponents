@@ -2,7 +2,6 @@ package exponents.calculation.implementation;
 
 import exponents.calculation.pattern.CalculationDouble;
 
-
 /**
  * @author Andreas Heimann </br>
  * 
@@ -10,7 +9,7 @@ import exponents.calculation.pattern.CalculationDouble;
  *         <code>base</code> of {@link #calculate(int)} method
  *
  */
-public class DoubleAdditionMethod implements CalculationDouble {
+public class DoubleAddition implements CalculationDouble {
 
 	private int exponent;
 	private int currentBase;
@@ -25,7 +24,7 @@ public class DoubleAdditionMethod implements CalculationDouble {
 	 * @param exponent
 	 *            to be used for the calculations.
 	 */
-	public DoubleAdditionMethod(int exponent) {
+	public DoubleAddition(int exponent) {
 		if (exponent <= 1) {
 			throw new IllegalArgumentException("Exponent can't be 1 or lower.");
 		}
@@ -35,7 +34,7 @@ public class DoubleAdditionMethod implements CalculationDouble {
 		this.exponent = exponent;
 	}
 
-	public DoubleAdditionMethod(int exponent, StackCreator stackCreator) {
+	public DoubleAddition(int exponent, StackCreator stackCreator) {
 		if (exponent <= 1) {
 			throw new IllegalArgumentException("Exponent can't be 1 or lower.");
 		}
@@ -51,11 +50,24 @@ public class DoubleAdditionMethod implements CalculationDouble {
 
 	public void setExponent(int exponent) {
 		exponentFactorial = stackCreator.factorialIteratively(exponent);
+		additionStack = null;
 		this.exponent = exponent;
 	}
 
 	public int getCurrentBase() {
 		return currentBase;
+	}
+
+	public double getExponentFactorial() {
+		return exponentFactorial;
+	}
+
+	public double[] getAdditionStack() {
+		return additionStack;
+	}
+
+	public void setAdditionStack(double[] additionStack) {
+		this.additionStack = additionStack;
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package calculation;
+package exponents.calculation.implementation;
 
 import java.math.BigInteger;
 
@@ -6,10 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import exponents.calculation.implementation.BigIntegerAdditionMethod;
-import exponents.calculation.implementation.OverflowException;
-import exponents.calculation.implementation.StackCreator;
-import exponents.calculation.implementation.StackCreatorImpl;
 import static org.junit.Assert.assertEquals;
 
 import static org.mockito.Mockito.mock;
@@ -17,7 +13,7 @@ import static org.mockito.Mockito.when;
 
 public class BigIntegerAdditionMethodTest {
 
-	BigIntegerAdditionMethod additionMethod;
+	BigIntegerAddition additionMethod;
 	StackCreator mockedStackCreator;
 
 	@Before
@@ -35,7 +31,7 @@ public class BigIntegerAdditionMethodTest {
 				BigInteger.valueOf(6));
 		when(mockedStackCreator.createBigIntegerStack(2, 3)).thenReturn(
 				testBigIntArray);
-		additionMethod = new BigIntegerAdditionMethod(3, mockedStackCreator);
+		additionMethod = new BigIntegerAddition(3, mockedStackCreator);
 
 		assertEquals("Calculation of Base 4 With Exponent 3 must 64",
 				BigInteger.valueOf(64), additionMethod.calculate(4));
@@ -50,7 +46,7 @@ public class BigIntegerAdditionMethodTest {
 				BigInteger.valueOf(6));
 		when(mockedStackCreator.createBigIntegerStack(2, 3)).thenReturn(
 				testBigIntArray);
-		additionMethod = new BigIntegerAdditionMethod(3, mockedStackCreator);
+		additionMethod = new BigIntegerAddition(3, mockedStackCreator);
 
 		additionMethod.calculate(4);
 		assertEquals(

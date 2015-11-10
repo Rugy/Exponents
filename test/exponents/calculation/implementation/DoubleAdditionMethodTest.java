@@ -1,13 +1,9 @@
-package calculation;
+package exponents.calculation.implementation;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import exponents.calculation.implementation.DoubleAdditionMethod;
-import exponents.calculation.implementation.OverflowException;
-import exponents.calculation.implementation.StackCreator;
-import exponents.calculation.implementation.StackCreatorImpl;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyDouble;
 import static org.mockito.Matchers.anyInt;
@@ -20,7 +16,7 @@ import static org.mockito.Mockito.when;
 
 public class DoubleAdditionMethodTest {
 
-	DoubleAdditionMethod additionMethod;
+	DoubleAddition additionMethod;
 	StackCreator mockedStackCreator;
 
 	@Before
@@ -38,7 +34,7 @@ public class DoubleAdditionMethodTest {
 		when(mockedStackCreator.multiplyDouble(4, 64d)).thenReturn(256d);
 		when(mockedStackCreator.multiplyDouble(4, 256d)).thenReturn(1024d);
 		when(mockedStackCreator.multiplyDouble(4, 1024d)).thenReturn(4096d);
-		additionMethod = new DoubleAdditionMethod(6, mockedStackCreator);
+		additionMethod = new DoubleAddition(6, mockedStackCreator);
 
 		additionMethod.calculate(4);
 		verify(mockedStackCreator, times(5)).multiplyDouble(anyDouble(),
@@ -52,7 +48,7 @@ public class DoubleAdditionMethodTest {
 		when(mockedStackCreator.factorialIteratively(5)).thenReturn(120d);
 		when(mockedStackCreator.createDoubleStack(1, 5)).thenReturn(
 				testDoubleArray);
-		additionMethod = new DoubleAdditionMethod(5, mockedStackCreator);
+		additionMethod = new DoubleAddition(5, mockedStackCreator);
 
 		additionMethod.calculate(5);
 		verify(mockedStackCreator, never()).multiplyDouble(anyDouble(),
@@ -66,7 +62,7 @@ public class DoubleAdditionMethodTest {
 		when(mockedStackCreator.factorialIteratively(5)).thenReturn(120d);
 		when(mockedStackCreator.createDoubleStack(1, 5)).thenReturn(
 				testDoubleArray);
-		additionMethod = new DoubleAdditionMethod(5, mockedStackCreator);
+		additionMethod = new DoubleAddition(5, mockedStackCreator);
 
 		additionMethod.calculate(5);
 		additionMethod.calculate(6);
@@ -83,7 +79,7 @@ public class DoubleAdditionMethodTest {
 		when(mockedStackCreator.factorialIteratively(3)).thenReturn(3d);
 		when(mockedStackCreator.createDoubleStack(2, 3)).thenReturn(
 				testDoubleArray);
-		additionMethod = new DoubleAdditionMethod(3, mockedStackCreator);
+		additionMethod = new DoubleAddition(3, mockedStackCreator);
 
 		assertEquals("Calculation of Base 4 With Exponent 3 must 64", 64d,
 				additionMethod.calculate(4), 0);
@@ -96,7 +92,7 @@ public class DoubleAdditionMethodTest {
 		when(mockedStackCreator.factorialIteratively(3)).thenReturn(6d);
 		when(mockedStackCreator.createDoubleStack(2, 3)).thenReturn(
 				testDoubleArray);
-		additionMethod = new DoubleAdditionMethod(3, mockedStackCreator);
+		additionMethod = new DoubleAddition(3, mockedStackCreator);
 
 		additionMethod.calculate(4);
 		assertEquals(
@@ -107,18 +103,18 @@ public class DoubleAdditionMethodTest {
 	// Exceptions
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructWithNegativeExponentThrowsIllegalArgument() {
-		additionMethod = new DoubleAdditionMethod(-1);
+		additionMethod = new DoubleAddition(-1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructWithOneAsExponentThrowsIllegalArgument() {
-		additionMethod = new DoubleAdditionMethod(1);
+		additionMethod = new DoubleAddition(1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testCalculateWithNegativeBaseThrowsIllegalArgument()
 			throws OverflowException {
-		additionMethod = new DoubleAdditionMethod(4, mockedStackCreator);
+		additionMethod = new DoubleAddition(4, mockedStackCreator);
 
 		additionMethod.calculate(-1);
 	}
@@ -126,7 +122,7 @@ public class DoubleAdditionMethodTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testCalculateWithOneAsBaseThrowsIllegalArgument()
 			throws OverflowException {
-		additionMethod = new DoubleAdditionMethod(4, mockedStackCreator);
+		additionMethod = new DoubleAddition(4, mockedStackCreator);
 
 		additionMethod.calculate(1);
 	}

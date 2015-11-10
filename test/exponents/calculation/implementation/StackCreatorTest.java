@@ -1,12 +1,9 @@
-package calculation;
+package exponents.calculation.implementation;
 
 import java.math.BigInteger;
 
 import org.junit.Test;
 
-import exponents.calculation.implementation.OverflowException;
-import exponents.calculation.implementation.StackCreator;
-import exponents.calculation.implementation.StackCreatorImpl;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 

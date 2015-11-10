@@ -11,7 +11,7 @@ import exponents.calculation.pattern.CalculationBigInteger;
  *         <code>base</code> of {@link #calculate(int)} method
  *
  */
-public class BigIntegerAdditionMethod implements CalculationBigInteger {
+public class BigIntegerAddition implements CalculationBigInteger {
 
 	private int exponent;
 	private int currentBase;
@@ -26,7 +26,7 @@ public class BigIntegerAdditionMethod implements CalculationBigInteger {
 	 * @param exponent
 	 *            to be used for the calculations.
 	 */
-	public BigIntegerAdditionMethod(int exponent) {
+	public BigIntegerAddition(int exponent) {
 		if (exponent <= 1) {
 			throw new IllegalArgumentException("Exponent can't be 1 or lower.");
 		}
@@ -36,7 +36,7 @@ public class BigIntegerAdditionMethod implements CalculationBigInteger {
 		this.exponent = exponent;
 	}
 
-	public BigIntegerAdditionMethod(int exponent, StackCreator stackCreator) {
+	public BigIntegerAddition(int exponent, StackCreator stackCreator) {
 		if (exponent <= 1) {
 			throw new IllegalArgumentException("Exponent can't be 1 or lower.");
 		}
@@ -52,11 +52,24 @@ public class BigIntegerAdditionMethod implements CalculationBigInteger {
 
 	public void setExponent(int exponent) {
 		exponentFactorial = stackCreator.factorialBigIngeter(exponent);
+		additionStack = null;
 		this.exponent = exponent;
 	}
 
 	public int getCurrentBase() {
 		return currentBase;
+	}
+
+	public BigInteger getExponentFactorial() {
+		return exponentFactorial;
+	}
+
+	public BigInteger[] getAdditionStack() {
+		return additionStack;
+	}
+
+	public void setAdditionStack(BigInteger[] additionStack) {
+		this.additionStack = additionStack;
 	}
 
 	/**
