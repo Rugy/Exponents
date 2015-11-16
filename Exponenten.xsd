@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf8" standalone="yes"?>
+<xsd:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xsd:element name="datenbank" type="database"/>
+	
+	<xsd:complexType name="database">
+
+		<xsd:element name="exponent" type="exponent" minOccurs="0" maxOccurs="unbound"/>

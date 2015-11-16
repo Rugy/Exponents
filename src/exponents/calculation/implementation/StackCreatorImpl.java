@@ -149,7 +149,6 @@ public class StackCreatorImpl implements StackCreator {
 
 		double factorial = 0;
 
-		// TODO THREADING
 		for (int i = 1; i <= exponent; i++) {
 			factorial += factorialRecursively(exponent - 1);
 		}
