@@ -10,6 +10,7 @@ import exponents.calculation.pattern.DataTypeFactory;
 import exponents.calculation.pattern.DataTypeFactory.CalculationMethod;
 import exponents.calculation.pattern.FactoryProducer;
 import exponents.calculation.pattern.FactoryProducer.DataType;
+import exponents.xml.SchemaReader;
 
 public class Main {
 
@@ -17,6 +18,8 @@ public class Main {
 
 		int base = 20;
 		int exponent = 4;
+
+		new SchemaReader();
 
 		DataTypeFactory bigIntegerCalculator = FactoryProducer
 				.getCalculationDataType(DataType.BIGINTEGER);

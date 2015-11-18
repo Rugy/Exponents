@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<database>
+	<exponent exponentValue="3">
+		<increment>6</increment>
+		<base baseValue="4">
+			<result>64</result>
+			<additionStack>
+				<stackNumber>37</stackNumber>
+				<stackNumber>18</stackNumber>
+			</additionStack>
+		</base>
+		<base baseValue="5">
+			<result>125</result>
+			<additionStack>
+				<stackNumber>61</stackNumber>
+				<stackNumber>24</stackNumber>
+			</additionStack>
+		</base>
+	</exponent>
+</database>
