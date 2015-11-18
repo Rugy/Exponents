@@ -1,19 +1,27 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <database>
 	<exponent exponentValue="3">
 		<increment>6</increment>
 		<base baseValue="4">
 			<result>64</result>
 			<additionStack>
-				<stackNumber>37</stackNumber>
-				<stackNumber>18</stackNumber>
+				<stackValue depth="1">
+					<value>37</value>
+				</stackValue>
+				<stackValue depth="2">
+					<value>18</value>
+				</stackValue>
 			</additionStack>
 		</base>
 		<base baseValue="5">
 			<result>125</result>
 			<additionStack>
-				<stackNumber>61</stackNumber>
-				<stackNumber>24</stackNumber>
+				<stackValue depth="1">
+					<value>61</value>
+				</stackValue>
+				<stackValue depth="2">
+					<value>24</value>
+				</stackValue>
 			</additionStack>
 		</base>
 	</exponent>

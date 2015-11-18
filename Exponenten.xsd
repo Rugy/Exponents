@@ -11,7 +11,7 @@
 
 	<xsd:complexType name="exponent">
 		<xsd:sequence>
-			<xsd:element name="increment" type="xsd:positiveInteger"/>
+			<xsd:element name="increment" type="xsd:string"/>
 			<xsd:element name="base" type="base" maxOccurs="unbounded"/>
 		</xsd:sequence>
 		<xsd:attribute name="exponentValue" type="xsd:positiveInteger"/>
@@ -19,16 +19,23 @@
 	
 	<xsd:complexType name="base">
 		<xsd:sequence>
-			<xsd:element name="result" type="xsd:positiveInteger"/>
+			<xsd:element name="result" type="xsd:string"/>
 			<xsd:element name="additionStack" type="additionStack"/>
 		</xsd:sequence>
-		<xsd:attribute name="baseValue" type="xsd:positiveInteger"/>
+		<xsd:attribute name="baseValue" type="xsd:string"/>
 	</xsd:complexType>
 	
 	<xsd:complexType name="additionStack">
 		<xsd:sequence>
-			<xsd:element name="stackNumber" type="xsd:positiveInteger" maxOccurs="unbounded"/>
+			<xsd:element name="stackValue" type="stackValue" maxOccurs="unbounded"/>
 		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="stackValue">
+		<xsd:sequence>
+			<xsd:element name="value" type="xsd:string"/>
+		</xsd:sequence>
+		<xsd:attribute name="depth" type="xsd:positiveInteger"/>
 	</xsd:complexType>
 	
 </xsd:schema>

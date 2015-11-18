@@ -1,11 +1,12 @@
 package exponents.xml;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 import javax.xml.XMLConstants;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
@@ -29,19 +30,19 @@ public class SchemaReader {
 			Validator validator = xsdSchema.newValidator();
 			validator.validate(xmlSource);
 
-			FileReader fileReader = new FileReader(XmlFile);
-			BufferedReader reader = new BufferedReader(fileReader);
+			JAXBContext jaxb = JAXBContext.newInstance(Database.class);
+			Unmarshaller unmarshaller = jaxb.createUnmarshaller();
+			Database xmlDatabase = (Database) unmarshaller.unmarshal(XmlFile);
 
-			String newLine = reader.readLine();
-
-			while (newLine != null) {
-				System.out.println(newLine);
-				newLine = reader.readLine();
-			}
+			System.err.println(xmlDatabase.getExponentList().get(0)
+					.getExponentValue());
 
 		} catch (SAXException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
