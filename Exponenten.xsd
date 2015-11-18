@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf8" standalone="yes"?>
-<xsd:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xsd:schema version="1.0" xmlns:xsd="https://github.com/Rugy/Exponents">
+
+	<xsd:annotation>
+    <xsd:documentation xml:lang="de">
+     XML Schema für Exponenten, bestehend aus Datenbank -> Exponent -> Basis, Increment
+    </xsd:documentation>
+  </xsd:annotation>
 
 	<xsd:element name="datenbank" type="database"/>
 	
 	<xsd:complexType name="database">
+		<xsd:sequence>
+			<xsd:element name="exponent" type="exponent" minOccurs="0" maxOccurs="unbound"/>
+		</xsd:sequence>
+	</xsd:complexType>
 
-		<xsd:element name="exponent" type="exponent" minOccurs="0" maxOccurs="unbound"/>
+	<xsd:complexType name="exponent">
+		<xsd:sequence>
+			<xsd:element name="base" type="xsd:positiveInteger" minOccurs="0" maxOccurs="unbound"/>
+			<xsd:element name="increment" type="xsd:positiveInteger"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>
