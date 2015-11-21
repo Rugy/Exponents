@@ -1,5 +1,6 @@
 package exponents.xml;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -11,7 +12,7 @@ public class Exponent {
 
 	private int exponentValue;
 	private String increment;
-	private List<Base> baseList;
+	private List<Base> baseList = new LinkedList<>();
 
 	@XmlAttribute
 	public int getExponentValue() {

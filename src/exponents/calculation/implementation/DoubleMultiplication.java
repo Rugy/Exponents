@@ -2,7 +2,6 @@ package exponents.calculation.implementation;
 
 import exponents.calculation.pattern.CalculationDouble;
 
-
 /**
  * @author Andreas Heimann </br>
  * 
@@ -14,10 +13,16 @@ import exponents.calculation.pattern.CalculationDouble;
 public class DoubleMultiplication implements CalculationDouble {
 
 	private static DoubleMultiplication multiplicator = new DoubleMultiplication();
+	private int base;
 	private int exponent = 1;
+	private double result;
 
 	// Private constructor so no new Instances can be generated
 	private DoubleMultiplication() {
+	}
+
+	public int getBase() {
+		return base;
 	}
 
 	public int getExponent() {
@@ -32,9 +37,12 @@ public class DoubleMultiplication implements CalculationDouble {
 		this.exponent = exponent;
 	}
 
-	public static DoubleMultiplication getMultiplicationMethod(
-			int exponent) {
+	public static DoubleMultiplication getMultiplicationMethod(int exponent) {
 		return multiplicator;
+	}
+
+	public double getResult() {
+		return result;
 	}
 
 	@Override
@@ -49,6 +57,7 @@ public class DoubleMultiplication implements CalculationDouble {
 			throw new OverflowException("double overflow after multiplication");
 		}
 
+		this.result = result;
 		return result;
 	}
 

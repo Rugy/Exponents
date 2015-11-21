@@ -15,10 +15,16 @@ import exponents.calculation.pattern.CalculationBigInteger;
 public class BigIntegerMultiplication implements CalculationBigInteger {
 
 	private static BigIntegerMultiplication multiplicator = new BigIntegerMultiplication();
+	private int base;
 	private int exponent = 1;
+	private BigInteger result;
 
 	// Private constructor so no new Instances can be generated
 	private BigIntegerMultiplication() {
+	}
+
+	public int getBase() {
+		return base;
 	}
 
 	public int getExponent() {
@@ -33,9 +39,12 @@ public class BigIntegerMultiplication implements CalculationBigInteger {
 		this.exponent = exponent;
 	}
 
-	public static BigIntegerMultiplication getMultiplicationMethod(
-			int exponent) {
+	public static BigIntegerMultiplication getMultiplicationMethod(int exponent) {
 		return multiplicator;
+	}
+
+	public BigInteger getResult() {
+		return result;
 	}
 
 	@Override
@@ -44,7 +53,8 @@ public class BigIntegerMultiplication implements CalculationBigInteger {
 			throw new IllegalArgumentException();
 		}
 
-		return BigInteger.valueOf(base).pow(exponent);
+		this.base = base;
+		result = BigInteger.valueOf(base).pow(exponent);
+		return result;
 	}
-
 }

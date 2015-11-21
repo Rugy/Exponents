@@ -16,6 +16,7 @@ public class DoubleAddition implements CalculationDouble {
 	private double exponentFactorial;
 	private double[] additionStack;
 	private StackCreator stackCreator;
+	private double result;
 
 	/**
 	 * Constructor used for exponential calculation. Needs <code>exponent</code>
@@ -54,7 +55,7 @@ public class DoubleAddition implements CalculationDouble {
 		this.exponent = exponent;
 	}
 
-	public int getCurrentBase() {
+	public int getBase() {
 		return currentBase;
 	}
 
@@ -68,6 +69,10 @@ public class DoubleAddition implements CalculationDouble {
 
 	public void setAdditionStack(double[] additionStack) {
 		this.additionStack = additionStack;
+	}
+
+	public double getResult() {
+		return result;
 	}
 
 	/**
@@ -120,6 +125,7 @@ public class DoubleAddition implements CalculationDouble {
 		}
 
 		currentBase = base;
+		this.result = result;
 		return result;
 	}
 }

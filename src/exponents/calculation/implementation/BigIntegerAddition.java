@@ -18,6 +18,7 @@ public class BigIntegerAddition implements CalculationBigInteger {
 	private BigInteger exponentFactorial;
 	private BigInteger[] additionStack;
 	private StackCreator stackCreator;
+	private BigInteger result;
 
 	/**
 	 * Constructor used for exponential calculation. Needs <code>exponent</code>
@@ -56,7 +57,7 @@ public class BigIntegerAddition implements CalculationBigInteger {
 		this.exponent = exponent;
 	}
 
-	public int getCurrentBase() {
+	public int getBase() {
 		return currentBase;
 	}
 
@@ -70,6 +71,10 @@ public class BigIntegerAddition implements CalculationBigInteger {
 
 	public void setAdditionStack(BigInteger[] additionStack) {
 		this.additionStack = additionStack;
+	}
+
+	public BigInteger getResult() {
+		return result;
 	}
 
 	/**
@@ -122,6 +127,7 @@ public class BigIntegerAddition implements CalculationBigInteger {
 		}
 
 		currentBase = base;
+		this.result = result;
 		return result;
 	}
 }

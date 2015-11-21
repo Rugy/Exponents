@@ -6,8 +6,12 @@ public interface CalculationBigInteger {
 
 	public BigInteger calculate(int base);
 
+	public int getBase();
+
 	public int getExponent();
 
 	public void setExponent(int exponent);
+
+	public BigInteger getResult();
 
 }
