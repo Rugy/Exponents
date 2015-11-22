@@ -61,6 +61,11 @@ public class BigIntegerAddition implements CalculationBigInteger {
 		return currentBase;
 	}
 
+	public void setBase(int base) {
+		currentBase = base;
+		additionStack = null;
+	}
+
 	public BigInteger getExponentFactorial() {
 		return exponentFactorial;
 	}

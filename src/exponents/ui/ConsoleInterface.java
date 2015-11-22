@@ -1,5 +1,6 @@
 package exponents.ui;
 
+import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -45,7 +46,8 @@ public class ConsoleInterface {
 	private void readCommand() {
 		System.out
 				.println("Commands:\n"
-						+ "CalculateS - starts calculation-configuration for Sequence\n"
+						+ "Calculate - starts calculation-configuration\n"
+						+ "CalculateDB - starts BigInteger calculation from Database\n"
 						+ "Print - Prints current Double and BigInteger calculation\n"
 						+ "PrintDB - Prints current Database and all BigInteger calculations in XML Format\n"
 						+ "Store - Stores the current BigInteger Addition in the Database\n"
@@ -59,32 +61,49 @@ public class ConsoleInterface {
 		if ("Exit".equals(command)) {
 			running = false;
 		} else if ("Load".equals(command)) {
-			System.out.println("Type name of the file\n");
+			System.out.println("Type name of the file");
 			database = XmlReader.loadXmlFile(scanner.nextLine());
 		} else if ("Calculate".equals(command)) {
-			String[] calcConfiguration = new String[4];
-			System.out.println("Choose Datatype:\n" + "Double\n"
-					+ "BigInteger\n");
+			String[] calcConfiguration = new String[5];
+			System.out
+					.println("Choose Datatype:\n" + "Double\n" + "BigInteger");
 			calcConfiguration[0] = scanner.nextLine();
-			System.out.println("Choose Exponent\n");
+			System.out.println("Choose Exponent");
 			calcConfiguration[1] = scanner.nextLine();
-			System.out.println("Choose Base\n");
+			System.out.println("Choose Base");
 			calcConfiguration[2] = scanner.nextLine();
-			System.out.println("Choose CalculationMethod:\n" + "Addition\n"
-					+ "Multiplication\n");
+			System.out.println("Choose number of operations");
 			calcConfiguration[3] = scanner.nextLine();
+			System.out.println("Choose CalculationMethod:\n" + "Addition\n"
+					+ "Multiplication");
+			calcConfiguration[4] = scanner.nextLine();
 			prepareCalculation(calcConfiguration);
+		} else if ("CalculateDB".equals(command)) {
+			int[] calcConfiguration = new int[3];
+			System.out.println("Choose Exponent");
+			calcConfiguration[0] = scanner.nextInt();
+			System.out.println("Choose Base");
+			calcConfiguration[1] = scanner.nextInt();
+			System.out.println("Choose number of operations");
+			calcConfiguration[2] = scanner.nextInt();
+			scanner.nextLine();
+			bigIntCalculation = loadFromDatabase(calcConfiguration[0],
+					calcConfiguration[1]);
+			startCalculation(bigIntCalculation, calcConfiguration[1],
+					calcConfiguration[2]);
 		} else if ("Print".equals(command)) {
 			System.out.println("Printing Results:");
 			printResults();
-		} else if ("Store".equals(command)) {
-			System.out.println("Storing BigIntAddition:");
-			storeInDatabase(bigIntCalculation);
 		} else if ("PrintDB".equals(command)) {
 			System.out.println("Printing current Database:");
 			XmlReader.printDatabase(database);
+		} else if ("Store".equals(command)) {
+			System.out.println("Storing BigIntAddition:");
+			sortDatabase(database);
+			storeInDatabase(bigIntCalculation);
 		} else if ("Save".equals(command)) {
 			System.out.println("Saving Database to File:");
+			sortDatabase(database);
 			System.out.println("Type the name of the File:");
 			XmlReader.saveDatabase(database, scanner.nextLine());
 		} else {
@@ -95,6 +114,7 @@ public class ConsoleInterface {
 	private void prepareCalculation(String[] calcConfiguration) {
 		int exponent;
 		int base;
+		int operationsCount;
 
 		// Choose Datatype
 		if ("Double".equals(calcConfiguration[0])) {
@@ -127,8 +147,18 @@ public class ConsoleInterface {
 			return;
 		}
 
+		// Check OperationsCount
+		try {
+			operationsCount = Integer.parseInt(calcConfiguration[3]);
+		} catch (NumberFormatException e) {
+			System.err
+					.println("Invalid input at 'Choose number of operations': "
+							+ calcConfiguration[3] + " is not a valid option.");
+			return;
+		}
+
 		// Choose CalculationMethod
-		if ("Addition".equals(calcConfiguration[3])) {
+		if ("Addition".equals(calcConfiguration[4])) {
 			if (dataFactory instanceof DataTypeDouble) {
 				doubleCalculation = dataFactory.getDoubleCalculation(
 						CalculationMethod.ADDITION, exponent);
@@ -138,7 +168,7 @@ public class ConsoleInterface {
 			} else {
 				return;
 			}
-		} else if ("Multiplication".equals(calcConfiguration[3])) {
+		} else if ("Multiplication".equals(calcConfiguration[4])) {
 			if (dataFactory instanceof DataTypeDouble) {
 				doubleCalculation = dataFactory.getDoubleCalculation(
 						CalculationMethod.MULTIPLICATION, exponent);
@@ -150,29 +180,31 @@ public class ConsoleInterface {
 			}
 		} else {
 			System.err.println("Invalid input at 'Choose CalculaionMethod': "
-					+ calcConfiguration[3] + " is not a valid option.");
+					+ calcConfiguration[4] + " is not a valid option.");
 			return;
 		}
 
 		// Start calculation
 		if (bigIntCalculation != null) {
-			startCalculation(bigIntCalculation, base);
+			startCalculation(bigIntCalculation, base, operationsCount);
 		} else if (doubleCalculation != null) {
-			startCalculation(doubleCalculation, base);
+			startCalculation(doubleCalculation, base, operationsCount);
 		} else {
 			System.err.println("Calculation failed.");
 		}
 	}
 
 	private void startCalculation(CalculationBigInteger bigIntCalculation,
-			final int base) {
+			int base, int operationsCount) {
 		calculating = true;
 		Thread thread = new Thread() {
 			int baseCalc = base;
+			int operationsCounter = operationsCount;
 
 			public void run() {
-				while (calculating) {
+				while (calculating && operationsCounter > 0) {
 					bigIntCalculation.calculate(baseCalc++);
+					operationsCounter--;
 				}
 			}
 		};
@@ -192,15 +224,18 @@ public class ConsoleInterface {
 		}
 	}
 
-	private void startCalculation(CalculationDouble doubleCalculation, int base) {
+	private void startCalculation(CalculationDouble doubleCalculation,
+			int base, int operationsCount) {
 		calculating = true;
 		Thread thread = new Thread() {
 			int baseCalc = base;
+			int operationsCounter = operationsCount;
 
 			public void run() {
-				while (calculating) {
+				while (calculating && operationsCounter > 0) {
 					try {
 						doubleCalculation.calculate(baseCalc++);
+						operationsCounter--;
 					} catch (OverflowException e) {
 						e.printStackTrace();
 					}
@@ -248,31 +283,83 @@ public class ConsoleInterface {
 
 		BigIntegerAddition bigIntAddition = (BigIntegerAddition) bigIntCalculation;
 		List<StackValue> stackValueList = new LinkedList<>();
-		for (int i = 0; i < bigIntAddition.getAdditionStack().length - 2; i++) {
-			System.err.println("Test");
+		for (int i = 1; i < bigIntAddition.getAdditionStack().length; i++) {
 			StackValue stackValue = new StackValue();
-			stackValue.setDepth(i + 1);
+			stackValue.setDepth(i);
 			stackValue.setValue(String.valueOf(bigIntAddition
 					.getAdditionStack()[i]));
 			stackValueList.add(stackValue);
 		}
-		System.err.println("size of stacklist" + stackValueList.size());
 
 		AdditionStack additionStack = new AdditionStack();
 		additionStack.setStackValue(stackValueList);
 
 		Base base = new Base();
-		System.err.println(additionStack.getStackValue().size());
 		base.setAdditionStack(additionStack);
 		base.setBaseValue(String.valueOf(bigIntAddition.getBase()));
 		base.setResult(String.valueOf(bigIntAddition.getResult()));
 
 		Exponent exponent = new Exponent();
+		boolean newExponent = true;
+		for (Exponent searchExponent : database.getExponentList()) {
+			if (searchExponent.getExponentValue() == bigIntAddition
+					.getExponent()) {
+				exponent = searchExponent;
+				newExponent = false;
+			}
+		}
 		exponent.getBaseList().add(base);
 		exponent.setExponentValue(bigIntAddition.getExponent());
 		exponent.setIncrement(String.valueOf(bigIntAddition
 				.getExponentFactorial()));
 
-		database.getExponentList().add(exponent);
+		if (newExponent) {
+			database.getExponentList().add(exponent);
+		}
+	}
+
+	private BigIntegerAddition loadFromDatabase(int exponent, int base) {
+		dataFactory = FactoryProducer
+				.getCalculationDataType(DataType.BIGINTEGER);
+		BigIntegerAddition bigIntAddition = (BigIntegerAddition) dataFactory
+				.getBigIntegerCalculation(CalculationMethod.ADDITION, exponent);
+		Exponent dbExponent = null;
+		Base dbBase = null;
+		BigInteger[] additionStack = new BigInteger[exponent - 1];
+
+		for (Exponent searchExponent : database.getExponentList()) {
+			if (searchExponent.getExponentValue() == exponent) {
+				dbExponent = searchExponent;
+			}
+		}
+		if (dbExponent == null) {
+			System.err.println("No BigIntAddition with exponent: " + exponent
+					+ " found in database.");
+			return bigIntAddition;
+		}
+
+		for (Base searchBase : dbExponent.getBaseList()) {
+			if (searchBase.getBaseValue().equals(String.valueOf(base))) {
+				dbBase = searchBase;
+			}
+		}
+		if (dbBase == null) {
+			System.err.println("No BigIntAddition with base: " + base
+					+ " found in database.");
+			return bigIntAddition;
+		}
+
+		for (int i = 0; dbBase.getAdditionStack().getStackValue().size() < i; i++) {
+			additionStack[i] = new BigInteger(dbBase.getAdditionStack()
+					.getStackValue().get(i).getValue());
+		}
+
+		bigIntAddition.setBase(base);
+		bigIntAddition.setAdditionStack(additionStack);
+		return bigIntAddition;
+	}
+
+	private void sortDatabase(Database database) {
+		// TODO
 	}
 }
