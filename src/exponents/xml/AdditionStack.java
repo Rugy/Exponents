@@ -1,6 +1,6 @@
 package exponents.xml;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType
 public class AdditionStack {
 
-	private List<StackValue> stackValue = new LinkedList<>();
+	private List<StackValue> stackValue = new ArrayList<>();
 
 	@XmlElement(name = "stackValue")
 	public List<StackValue> getStackValue() {

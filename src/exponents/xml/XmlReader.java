@@ -42,15 +42,21 @@ public class XmlReader {
 	}
 
 	public static Database loadXmlFile(String xmlFilePath) {
+		SchemaFactory factory = SchemaFactory
+				.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		File xsdFile = new File("Exponenten.xsd");
 		Database xmlDatabase = new Database();
 		File xmlFile = new File(xmlFilePath);
 		try {
+			Schema xsdSchema = factory.newSchema(xsdFile);
 			JAXBContext jaxb = JAXBContext.newInstance(Database.class);
 			Unmarshaller unmarshaller = jaxb.createUnmarshaller();
+			unmarshaller.setSchema(xsdSchema);
 			xmlDatabase = (Database) unmarshaller.unmarshal(xmlFile);
-		} catch (JAXBException e) {
+		} catch (JAXBException | SAXException e) {
 			System.err.println("Database could not be loaded from "
 					+ xmlFilePath + ", new Database created.");
+			e.printStackTrace();
 		}
 		return xmlDatabase;
 	}

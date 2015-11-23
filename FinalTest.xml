@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<database xsi:schemaLocation="Exponenten.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <exponent exponentValue="3">
+				<increment>6</increment>
+        <base baseValue="4">
+            <result>64</result>
+            <additionStack>
+                <stackValue depth="1">
+                    <value>37</value>
+                </stackValue>
+                <stackValue depth="2">
+                    <value>18</value>
+                </stackValue>
+            </additionStack>
+        </base>
+        <base baseValue="20">
+            <result>8000</result>
+            <additionStack>
+                <stackValue depth="1">
+                    <value>1141</value>
+                </stackValue>
+                <stackValue depth="2">
+                    <value>114</value>
+                </stackValue>
+            </additionStack>
+        </base>
+        <base baseValue="5">
+            <result>125</result>
+            <additionStack>
+                <stackValue depth="1">
+                    <value>61</value>
+                </stackValue>
+                <stackValue depth="2">
+                    <value>24</value>
+                </stackValue>
+            </additionStack>
+        </base>
+    </exponent>
+    <exponent exponentValue="10">
+        <increment>3628800</increment>
+        <base baseValue="49">
+            <result>79792266297612001</result>
+            <additionStack>
+                <stackValue depth="1">
+                    <value>14867204189066977</value>
+                </stackValue>
+                <stackValue depth="2">
+                    <value>2541274316352002</value>
+                </stackValue>
+                <stackValue depth="3">
+                    <value>393729196690500</value>
+                </stackValue>
+                <stackValue depth="4">
+                    <value>54450263321520</value>
+                </stackValue>
+                <stackValue depth="5">
+                    <value>6586927081560</value>
+                </stackValue>
+                <stackValue depth="6">
+                    <value>677951270640</value>
+                </stackValue>
+                <stackValue depth="7">
+                    <value>57018124800</value>
+                </stackValue>
+                <stackValue depth="8">
+                    <value>3675369600</value>
+                </stackValue>
+                <stackValue depth="9">
+                    <value>161481600</value>
+                </stackValue>
+            </additionStack>
+        </base>
+    </exponent>
+    <exponent exponentValue="5">
+        <increment>120</increment>
+        <base baseValue="7">
+            <result>16807</result>
+            <additionStack>
+                <stackValue depth="1">
+                    <value>9031</value>
+                </stackValue>
+                <stackValue depth="2">
+                    <value>4380</value>
+                </stackValue>
+                <stackValue depth="3">
+                    <value>1830</value>
+                </stackValue>
+                <stackValue depth="4">
+                    <value>600</value>
+                </stackValue>
+            </additionStack>
+        </base>
+        <base baseValue="5">
+            <result>3125</result>
+            <additionStack>
+                <stackValue depth="1">
+                    <value>2101</value>
+                </stackValue>
+                <stackValue depth="2">
+                    <value>1320</value>
+                </stackValue>
+                <stackValue depth="3">
+                    <value>750</value>
+                </stackValue>
+                <stackValue depth="4">
+                    <value>360</value>
+                </stackValue>
+            </additionStack>
+        </base>
+    </exponent>
+		<exponent exponentValue="3">
+				<increment>6</increment>
+        <base baseValue="5">
+            <result>125</result>
+            <additionStack>
+                <stackValue depth="1">
+                    <value>61</value>
+                </stackValue>
+                <stackValue depth="2">
+                    <value>24</value>
+                </stackValue>
+            </additionStack>
+        </base>
+    </exponent>
+</database>

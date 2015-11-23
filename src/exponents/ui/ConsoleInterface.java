@@ -1,6 +1,7 @@
 package exponents.ui;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -53,6 +54,7 @@ public class ConsoleInterface {
 						+ "Store - Stores the current BigInteger Addition in the Database\n"
 						+ "Load - loads a BigInteger Database from an Xml File\n"
 						+ "Save - Saves the current Database in an Xml File\n"
+						+ "Sort - Sorts the current Database and removes duplicates\n"
 						+ "Exit - discard all unsaved entries and exit the programm.\n");
 		executeCommand(scanner.nextLine());
 	}
@@ -92,20 +94,21 @@ public class ConsoleInterface {
 			startCalculation(bigIntCalculation, calcConfiguration[1],
 					calcConfiguration[2]);
 		} else if ("Print".equals(command)) {
-			System.out.println("Printing Results:");
+			System.out.println("Printing Results...");
 			printResults();
 		} else if ("PrintDB".equals(command)) {
-			System.out.println("Printing current Database:");
+			System.out.println("Printing current Database...");
 			XmlReader.printDatabase(database);
 		} else if ("Store".equals(command)) {
-			System.out.println("Storing BigIntAddition:");
-			sortDatabase(database);
+			System.out.println("Storing BigIntAddition...");
 			storeInDatabase(bigIntCalculation);
 		} else if ("Save".equals(command)) {
-			System.out.println("Saving Database to File:");
-			sortDatabase(database);
+			System.out.println("Saving Database to File...");
 			System.out.println("Type the name of the File:");
 			XmlReader.saveDatabase(database, scanner.nextLine());
+		} else if ("Sort".equals(command)) {
+			System.out.println("Sorting Database...");
+			sortDatabase(database);
 		} else {
 			System.out.println("Invalid Command, try again!");
 		}
@@ -308,11 +311,24 @@ public class ConsoleInterface {
 				newExponent = false;
 			}
 		}
-		exponent.getBaseList().add(base);
+
+		boolean newBase = true;
+		if (!newExponent) {
+			for (Base searchBase : exponent.getBaseList()) {
+				if (searchBase.getBaseValue().equals(base.getBaseValue())) {
+					System.err
+							.println("Exponent with that Base already in Database");
+					newBase = false;
+				}
+			}
+		}
 		exponent.setExponentValue(bigIntAddition.getExponent());
 		exponent.setIncrement(String.valueOf(bigIntAddition
 				.getExponentFactorial()));
 
+		if (newBase) {
+			exponent.getBaseList().add(base);
+		}
 		if (newExponent) {
 			database.getExponentList().add(exponent);
 		}
@@ -360,6 +376,108 @@ public class ConsoleInterface {
 	}
 
 	private void sortDatabase(Database database) {
-		// TODO
+		database.setExponentList(sortExponentList(database.getExponentList()));
+
+		for (Exponent searchExponent : database.getExponentList()) {
+			searchExponent.setBaseList(sortBaseList(searchExponent
+					.getBaseList()));
+		}
+	}
+
+	private List<Exponent> sortExponentList(List<Exponent> exponentList) {
+		List<Exponent> leftList = new ArrayList<>();
+		List<Exponent> rightList = new ArrayList<>();
+		if (exponentList.size() > 2) {
+			leftList = sortExponentList(exponentList.subList(0,
+					((int) (exponentList.size() / 2)) + 1));
+			rightList = sortExponentList(exponentList.subList(
+					((int) (exponentList.size() / 2)) + 1, exponentList.size()));
+		} else if (exponentList.size() == 2) {
+			leftList.add(exponentList.get(0));
+			rightList.add(exponentList.get(1));
+		} else {
+			return exponentList;
+		}
+
+		List<Exponent> sortedList = new ArrayList<>();
+		int i = 0;
+		int j = 0;
+
+		while (i < leftList.size() && j < rightList.size()) {
+			if (leftList.get(i).getExponentValue() == rightList.get(j)
+					.getExponentValue()) {
+				System.err.println("Same Exponents found, merged baselists");
+				leftList.get(i).getBaseList()
+						.addAll(rightList.get(j).getBaseList());
+				sortedList.add(leftList.get(i));
+				i++;
+				j++;
+			} else if (leftList.get(i).getExponentValue() < rightList.get(j)
+					.getExponentValue()) {
+				sortedList.add(leftList.get(i));
+				i++;
+			} else if (leftList.get(i).getExponentValue() > rightList.get(j)
+					.getExponentValue()) {
+				sortedList.add(rightList.get(j));
+				j++;
+			}
+		}
+
+		if (i == leftList.size() && j < rightList.size()) {
+			sortedList.addAll(rightList.subList(j, rightList.size()));
+		}
+		if (i < leftList.size() && j == rightList.size()) {
+			sortedList.addAll(leftList.subList(i, leftList.size()));
+		}
+
+		return sortedList;
+	}
+
+	private List<Base> sortBaseList(List<Base> baseList) {
+		List<Base> leftList = new ArrayList<>();
+		List<Base> rightList = new ArrayList<>();
+		if (baseList.size() > 2) {
+			leftList = sortBaseList(baseList.subList(0,
+					((int) (baseList.size() / 2)) + 1));
+			rightList = sortBaseList(baseList.subList(
+					((int) (baseList.size() / 2)) + 1, baseList.size()));
+		} else if (baseList.size() == 2) {
+			leftList.add(baseList.get(0));
+			rightList.add(baseList.get(1));
+		} else {
+			return baseList;
+		}
+
+		List<Base> sortedList = new ArrayList<>();
+		int i = 0;
+		int j = 0;
+
+		while (i < leftList.size() && j < rightList.size()) {
+			BigInteger leftBase = new BigInteger(leftList.get(i).getBaseValue());
+			BigInteger rightBase = new BigInteger(rightList.get(j)
+					.getBaseValue());
+			if (leftList.get(i).getBaseValue()
+					.equals(rightList.get(j).getBaseValue())) {
+				System.err.println("Same Bases found, tossed one");
+				sortedList.add(leftList.get(i));
+				i++;
+				j++;
+			} else if (leftBase.compareTo(rightBase) == -1) {
+				sortedList.add(leftList.get(i));
+				i++;
+			} else if (leftBase.compareTo(rightBase) == +1) {
+				sortedList.add(rightList.get(j));
+				j++;
+			}
+		}
+
+		if (i == leftList.size() && j < rightList.size()) {
+			sortedList.addAll(rightList.subList(j, rightList.size()));
+		}
+		if (i < leftList.size() && j == rightList.size()) {
+			sortedList.addAll(leftList.subList(i, leftList.size()));
+		}
+
+		return sortedList;
 	}
 }

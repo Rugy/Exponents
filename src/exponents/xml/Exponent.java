@@ -1,18 +1,18 @@
 package exponents.xml;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType
+@XmlType(propOrder = { "increment", "baseList" })
 public class Exponent {
 
 	private int exponentValue;
 	private String increment;
-	private List<Base> baseList = new LinkedList<>();
+	private List<Base> baseList = new ArrayList<>();
 
 	@XmlAttribute
 	public int getExponentValue() {
